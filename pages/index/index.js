@@ -10,6 +10,7 @@ import ImageSynthesis from '../../utils/image-synthesis.js';
 import Notification from '../../utils/react-whc-notification.js';
 Page({
   data: {
+    currentTab: 0,
     didShow: false,
     isTouchScale: false,
     makePosterImage: false,
@@ -130,13 +131,13 @@ Page({
       didShow,
     } = this.data;
     if (!didShow && userInfo.highAvatarUrl != void 0) {
-      setTimeout(() => {
-        this.data.didShow = true;
-        wx.showToast({
-          title: '可以切换不同节日',
-          icon: 'none',
-        });
-      }, 1000);
+      // setTimeout(() => {
+      //   this.data.didShow = true;
+      //   wx.showToast({
+      //     title: '可以切换不同节日',
+      //     icon: 'none',
+      //   });
+      // }, 1000);
     }
   },
 
@@ -144,6 +145,28 @@ Page({
     this._showFestivalSwitchPrompt();
   },
 
+  handleClick(e) {
+    let currentTab = e.currentTarget.dataset.index
+    const {
+      icons,
+      festivalNames,
+      currentFestival,
+    } = this.data;
+    const index = e.currentTarget.dataset.index;
+    const name = festivalNames[index];
+    icons[currentFestival] = icons[currentFestival].map((v, i) => {
+      v.isselected = i == 0;
+      return v;
+    });
+    this.setData({
+      festivalIndex: index,
+      festivalImageIndex: 0,
+      currentFestival: name,
+      festivalSrc: icons[name][0].src,
+      icons,
+      currentTab
+    });
+  },
   onLoad: function () {
     const {
       festivalNames,
@@ -223,6 +246,7 @@ Page({
   },
 
   onChangePickerFestival: function(e) {
+    console.log('eeee', e);
     const {
       icons,
       festivalNames,

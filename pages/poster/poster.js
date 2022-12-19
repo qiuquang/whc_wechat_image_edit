@@ -15,7 +15,7 @@ Page({
     loading: false,
     posterSrc: null,
     imageurl: null,
-    qrcode: '../images/whcapp.jpg',
+    qrcode: '../images/xcxtouxiang.jpg',
     fonts: [
       'normal bold 100px NSimSun',
       'normal bold 80px NSimSun',
